@@ -1,16 +1,21 @@
 # ClientServerBasics
 ## Matheus da Silva Rodrigues
 
-Este documento descreve uma aplicação calculadora implementada no estilo de cliente e servidor
+Este documento descreve uma aplicação calculadora implementada no estilo de cliente e servidor utilizando rpyc
+
+## Dependências
+ 
+ * python3
+ * rpyc
+
 
 ### Cliente
 
-O nosso cliente envia obtem as operações que o nosso usuário deseja realizar, enviando uma requisição para o servidor, que irá de fato realizar a operação.
-Ao executar o cliente, o programa irá obter algumas informações essenciais para que a operação desejada seja realizada. O programa cliente irá perguntar qual é a operação que o usuário deseja realizar, bem como quais são os operadores para tal operação. Uma vez informado todos os dados necessários o cliente empacota a mensagem usando o pacote `pickle` e envia a mensagem para o servidor. Assim que a mensagem é enviada o cliente espera pela resposta do servidor, ao receber uma resposta o cliente desempacota a mensagem recebida e imprime o resultado da operação.
+Para esta aplicação, o nosso cliente utiliza somente os métodos expostos pelo servidos utilizando a bibliteca `rpyc`. Para isto basta nos conectarmos ao servidor utilizando as informações de conexão necessárias e chamarmos os métodos expostos assim como chamaríamos um método local. 
 
 ### Servidor
 
-O servidor espera em um loop infinito por uma requisição de qualquer cliente, uma vez que a requisição é recebida ele desempacota a mensagem, filtra a operação necessária, executa a operação, recupera o resultado da operação e enpacota tal resultado em uma mensagem para ser enviada para o servidor.
+Para que um servidor possa expor seus métodos, ele necessita herdar uma classe do rpyc chamada `rpyc.Service`, uma vez que a nossa classe herda desta basta implementarmos nossos métodos exposos publicamente com a seguinte assinatura: `exposed_<nome_do_metodo>(self, <args>)`. Desta forma, todo e qualquer método que seguir esta assinatura será exposto para o cliente.
 
 ### Link com apresentação:
 
