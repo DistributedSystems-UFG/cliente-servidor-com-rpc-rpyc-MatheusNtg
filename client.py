@@ -1,5 +1,4 @@
-import pickle
-import os
+import rpyc
 from socket  import *
 from constCS import * #-
 
@@ -19,19 +18,19 @@ operation = str(input("Chose you operation: "))
 first_operand = int(input("Type the first operand (integers only): "))
 second_operand = int(input("Type the second operand (integers only): "))
 
-conn = rpyc.connect(SERVER, PORT) # Connect to the server
+conn = rpyc.connect(HOST, PORT)
 result = 0
 
 if operation == '+':
-    result = conn.root.exposed_sum(first_operand, second_operand)
+	result = conn.root.exposed_sum(first_operand, second_operand)
 elif operation == '-':
 	result = conn.root.exposed_sub(first_operand, second_operand)
 elif operation == '*':
-    result = conn.root.exposed_mult(first_operand, second_operand)
-elif operation == '/'
+	result = conn.root.exposed_mult(first_operand, second_operand)
+elif operation == '/':
 	result = conn.root.exposed_div(first_operand, second_operand)
 else:
 	print('Invalid operation')
-	os.exit()
+	exit()
 
 print(f'Answer: {result}')
